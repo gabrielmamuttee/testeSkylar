@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="author" content="Gabriel do Marco Bassinello">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Dashboard</title>
+        
+        <!-- Vue production version, optimized for size and speed -->
+        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+
+        <!-- Boostrap 4.4 minified -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        
+        <!-- Local Styles-->
+        <link rel="stylesheet" href="styles.css">
+        
+        <!-- FontAwesome CDN Kit -->
+        <script src="https://kit.fontawesome.com/14ea851b2d.js" crossorigin="anonymous"></script> 
+    </head>
+    <body>
+        <div id="app">
+            <div class="container-fluid">
+                <!-- Header -->
+                <div class="row bg-dark">
+                    <div class="col-lg-12">
+                        <h1 class="text-center text-light pt-2">Teste Front-End Skylar</h1>
+                    </div>
+                </div>
+                <div class="container">
+                    <!-- Toolbar -->
+                    <div class="row mt-2">
+                        <div class="col-lg-6">
+                            <h3 class="text-info">Registered Users</h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <button class="btn btn-info float-right">
+                                <i class="fas fa-user"></i>&nbsp;&nbsp;Add new user
+                            </button>
+                        </div>
+                    </div>
+                    <hr class="bg-info">
+                    <!-- Alerts -->
+                    <div class="alert alert-danger" v-if="errorMsg">Error Message</div>
+                    <div class="alert alert-success" v-if="successMsg">Success Message</div>
+                    <!-- Table -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <table class="table table-bordered table-striped">
+                                <thead>
+                                    <tr class="text-center bg-info text-light">
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Telephone</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>1</td>
+                                    <td>Mamute</td>
+                                    <td>gabrielbassinello@hotmail.com</td>
+                                    <td>997081962</td>
+                                    <td class="text-center"><a href="#" class="text-success"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;<a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add New User Modal -->
+            <div id="overlay">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Add New User</h5>
+                            <button type="button" class="close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                                </div>                                
+                                <div class="form-group">
+                                    <input type="text" name="email" class="form-control form-control-lg" placeholder="Email">
+                                </div>                                
+                                <div class="form-group">
+                                    <input type="tel" name="telephone" class="form-control form-control-lg" placeholder="Telephone">
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-info btn-block btn-lg">Add User</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main scripts -->
+        <script type="text/javascript" src="main.js"></script>
+
+        <!-- Bootstrap requirements -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
