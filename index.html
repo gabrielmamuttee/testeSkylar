@@ -16,7 +16,7 @@
         
         <!-- Local Styles-->
         <link rel="stylesheet" href="styles.css">
-        
+
         <!-- FontAwesome CDN Kit -->
         <script src="https://kit.fontawesome.com/14ea851b2d.js" crossorigin="anonymous"></script> 
     </head>
@@ -25,33 +25,33 @@
             <div class="container-fluid">
                 <!-- Header -->
                 <div class="row bg-dark">
-                    <div class="col-lg-12">
+                    <div class="col-12">
                         <h1 class="text-center text-light pt-2">Teste Front-End Skylar</h1>
                     </div>
                 </div>
-                <div class="container">
+                <div class="container-fluid p-0 ml-0 mr-0">
                     <!-- Toolbar -->
                     <div class="row mt-2">
-                        <div class="col-lg-6">
-                            <h3 class="text-info">Registered Users</h3>
+                        <div class="col-6">
+                            <h4 class="text-info">Registered Users</h4>
                         </div>
-                        <div class="col-lg-6">
-                            <button class="btn btn-info float-right">
+                        <div class="col-6">
+                            <button class="btn btn-info float-right" @click="showAddModal=true">
                                 <i class="fas fa-user"></i>&nbsp;&nbsp;Add new user
                             </button>
                         </div>
                     </div>
                     <hr class="bg-info">
                     <!-- Alerts -->
-                    <div class="alert alert-danger" v-if="errorMsg">Error Message</div>
-                    <div class="alert alert-success" v-if="successMsg">Success Message</div>
+                    <div class="alert alert-danger" v-if="errorMsg">{{errorMsg}}</div>
+                    <div class="alert alert-success" v-if="successMsg">{{successMsg}}</div>
                     <!-- Table -->
                     <div class="row">
-                        <div class="col-lg-12">
+                        <div class="col-12">
                             <table class="table table-bordered table-striped">
                                 <thead>
                                     <tr class="text-center bg-info text-light">
-                                        <th>ID</th>
+                                        <th>#</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Telephone</th>
@@ -59,11 +59,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <td>1</td>
-                                    <td>Mamute</td>
-                                    <td>gabrielbassinello@hotmail.com</td>
-                                    <td>997081962</td>
-                                    <td class="text-center"><a href="#" class="text-success"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;<a href="#" class="text-danger"><i class="fas fa-trash-alt"></i></a></td>
+                                    <tr class="text-center" v-for="item in contacts">
+                                        <td>{{ item.id + 1}}</td>
+                                        <td>{{ item.name }}</td>
+                                        <td>{{ item.email }}</td>
+                                        <td>{{ item.telephone }}</td>
+                                        <td class="text-center"><a href="#" class="text-success" @click="showEditModal=true"><i class="fas fa-edit"></i></a>&nbsp;&nbsp;<a href="#" class="text-danger" @click="showDeleteModal=true"><i class="fas fa-trash-alt"></i></a></td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -71,12 +73,41 @@
                 </div>
             </div>
             <!-- Add New User Modal -->
-            <div id="overlay">
+            <div id="overlay" v-if="showAddModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Add New User</h5>
-                            <button type="button" class="close">
+                            <button type="button" class="close" @click="showAddModal=false">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <form action="#" method="POST">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control form-control-lg" placeholder="Name" v-model="name">
+                                </div>                                
+                                <div class="form-group">
+                                    <input type="text" name="email" class="form-control form-control-lg" placeholder="Email" v-model="email">
+                                </div>                                
+                                <div class="form-group">
+                                    <input type="tel" name="telephone" class="form-control form-control-lg" placeholder="Telephone" v-model="telephone">
+                                </div>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-info btn-block btn-lg" @click="addContact">Add Contact</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Edit User Modal -->
+            <div id="overlay" v-if="showEditModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Edit Contact</h5>
+                            <button type="button" class="close" @click="showEditModal=false">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -92,8 +123,29 @@
                                     <input type="tel" name="telephone" class="form-control form-control-lg" placeholder="Telephone">
                                 </div>
                                 <div class="form-group">
-                                    <button class="btn btn-info btn-block btn-lg">Add User</button>
+                                    <button type="submit" class="btn btn-info btn-block btn-lg" @click="addContact">Confirm Editing</button>
                                 </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Delete User Modal -->
+            <div id="overlay" v-if="showDeleteModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Delete Contact</h5>
+                            <button type="button" class="close" @click="showDeleteModal=false">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body p-4">
+                            <h4>Are you sure you want to delete this contact?</h4>
+                            <h5>You are about to delete "Mamute"</h5>
+                            <hr>
+                            <button class="btn btn-danger btn-lg">Delete</button>
+                            <button class="btn btn-success btn-lg">Cancel</button>
                             </form>
                         </div>
                     </div>
