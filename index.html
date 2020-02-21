@@ -29,7 +29,7 @@
                         <h1 class="text-center text-light pt-2">Teste Front-End Skylar</h1>
                     </div>
                 </div>
-                <div class="container-fluid p-0 ml-0 mr-0">
+                <div class="container-fluid">
                     <!-- Toolbar -->
                     <div class="row mt-2">
                         <div class="col-6">
@@ -63,7 +63,7 @@
                                         <td>{{ item.email }}</td>
                                         <td>{{ item.telephone }}</td>
                                         <td class="text-center">
-                                            <a href="#" class="text-success" @click="showEditModal=true"><i class="fas fa-edit"></i></a>
+                                            <a href="#" class="text-success" @click="getContact(item.id);showEditModal=true"><i class="fas fa-edit"></i></a>
                                             &nbsp;&nbsp;
                                             <a href="#" class="text-danger" @click="removeContact(item.id)"><i class="fas fa-trash-alt"></i></a>
                                         </td>
@@ -75,6 +75,7 @@
                 </div>
             </div>
             <!-- Add New User Modal -->
+            <transition name="fade">
             <div id="overlay" v-if="showAddModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -103,56 +104,38 @@
                     </div>
                 </div>
             </div>
+            </transition>
             <!-- Edit User Modal -->
+            <transition name="fade">
             <div id="overlay" v-if="showEditModal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Edit Contact</h5>
-                            <button type="button" class="close" @click="showEditModal=false">
+                            <button type="button" class="close" @click="showEditModal=false;clearCurrentContact();">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body p-4">
                             <form action="#" method="POST">
                                 <div class="form-group">
-                                    <input type="text" name="name" class="form-control form-control-lg" placeholder="Name">
+                                    <input type="text" name="name" class="form-control form-control-lg" v-model="name">
                                 </div>                                
                                 <div class="form-group">
-                                    <input type="text" name="email" class="form-control form-control-lg" placeholder="Email">
+                                    <input type="text" name="email" class="form-control form-control-lg" v-model="email">
                                 </div>                                
                                 <div class="form-group">
-                                    <input type="tel" name="telephone" class="form-control form-control-lg" placeholder="Telephone">
+                                    <input type="tel" name="telephone" class="form-control form-control-lg" v-model="telephone">
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-info btn-block btn-lg" @click="addContact">Confirm Editing</button>
+                                    <button type="submit" class="btn btn-info btn-block btn-lg" @click="editContact">Confirm Editing</button>
                                 </div>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- Delete User Modal -->
-            <div id="overlay" v-if="showDeleteModal">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Delete Contact</h5>
-                            <button type="button" class="close" @click="showDeleteModal=false">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body p-4">
-                            <h4>Are you sure you want to delete this contact?</h4>
-                            <h5>You are about to delete "Mamute"</h5>
-                            <hr>
-                            <button class="btn btn-danger btn-lg">Delete</button>
-                            <button class="btn btn-success btn-lg" @click="showDeleteModal=false">Cancel</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </transition>
         </div>
 
         <!-- Main scripts -->
