@@ -33,14 +33,25 @@ var app = new Vue({
     },
     methods: {
         addContact(){
+            //If the contact array is null id = 0, if not, search the last item in array and sum + 1 into the id
+            var identifier = '';
+            if(this.contacts.length == '0'){
+                identifier = '0';
+            } else {
+                identifier = parseInt((this.contacts[this.contacts.length - 1].id + 1));
+            }
+            console.log(identifier);
             this.contacts.push({
-                id: this.contacts.length,
+                id: identifier,
                 name: this.name,
                 email: this.email,
                 telephone: this.telephone});
             this.name = '';
             this.email = '';
             this.telephone = '';
+        },
+        removeContact(contactId){
+            this.$delete(this.contacts, contactId);
         },
     }
 })
